@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import axios, { AxiosResponse } from "axios";
 
 interface AddUsersProps {
-  // Add any props if needed
+  
 }
 
 interface User {
