@@ -4,12 +4,16 @@ import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const Login = ({ handleLogin }) => {
+interface LoginProps {
+  handleLogin: (token: string) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ handleLogin }) => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLoginFormSubmit = async (e) => {
+  const handleLoginFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navigation from "./components/Navigation/Navigation";
-import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import Navigation from "./components/Navigation/Navigation.tsx";
+import Login from "./pages/Login/Login.tsx";
+import Home from "./pages/Home/Home.tsx";
+import { Redirect } from "react-router-dom";
 import AuthContext from "./AuthContext";
 
-const App = () => {
+const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {

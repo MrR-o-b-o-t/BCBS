@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from "react";
 import "./home.css";
 
-import Pagination from "../../components/Pagination/customPagination";
+import Pagination from "../../components/Pagination/customPagination.tsx";
+import AddUsers from "../../components/Users/AddUser.tsx";
 
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-export default function Home() {
-  const [users, setUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(5);
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+}
 
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+export default function Home(): JSX.Element {
+  const [users, setUsers] = useState<User[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [usersPerPage] = useState<number>(5);
+
+  const indexOfLastUser: number = currentPage * usersPerPage;
+  const indexOfFirstUser: number = indexOfLastUser - usersPerPage;
+  const currentUsers: User[] = users.slice(indexOfFirstUser, indexOfLastUser);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       try {
         const res = await fetch("https://reqres.in/api/users");
         const data = await res.json();
@@ -30,17 +38,20 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const handlePageChange = (pageNumber) => {
+  const handlePageChange = (pageNumber: number): void => {
     setCurrentPage(pageNumber);
   };
 
   return (
     <Container className="">
-      <h1>Home</h1>
+      <div>
+        <h2>Add New User</h2>
+        <AddUsers />
+      </div>
       <div className="mt-3">
         <Row xs={1} md={2} className="g-4">
-          {currentUsers.map((user) => (
-            <Col>
+          {currentUsers.map((user: User) => (
+            <Col key={user.id}>
               <Card style={{ width: "18rem" }}>
                 <Card.Img
                   variant="top"
